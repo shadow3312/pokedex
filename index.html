@@ -10,22 +10,92 @@
     <div class="container">
       <div class="app-header">
         <h1 class="app-title">Akieni Pokédex</h1>
-        <small class="app-subtitle">Recherchez un Pokémon par nom ou ID</small>
+        <p class="app-subtitle">Recherchez un Pokémon par nom ou ID</p>
+      </div>
+      <div class="search-container">
+        <input
+          type="text"
+          name="search-input"
+          id="search-input"
+          autocomplete="off"
+          placeholder=""
+          required
+        />
+        <span id="placeholder-text"></span>
+        <button id="search-button">Search</button>
+      </div>
+
+      <div class="pokemon-card" id="info-container">
+        <div class="card-header">
+          <div class="pic-container">
+            <img id="pic" alt="pokemon pic" />
+          </div>
+          <div class="pokemon-info-header">
+            <h2 id="pokemon-name">Pikachu</h2>
+            <p id="pokemon-id">#33</p>
+            <div class="dimensions">
+              <div class="dimension">
+                <span id="weight" class="dimension-value">3.2 kg</span>
+                <span class="dimension-label">Poids</span>
+              </div>
+              <div class="dimension">
+                <span id="height" class="dimension-value">6.0 cm</span>
+                <span class="dimension-label">Taille</span>
+              </div>
+            </div>
+            <div class="types"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="stats-title">Statistiques</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-name">HP</div>
+              <div id="hp" class="stat-value">43</div>
+              <div class="stat-bar">
+                <div class="stat-fill" id="hp-bar"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">Attaque</div>
+              <div id="attack" class="stat-value"></div>
+              <div class="stat-bar">
+                <div class="stat-fill" id="attack-bar"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">Défense</div>
+              <div id="defense" class="stat-value"></div>
+              <div class="stat-bar">
+                <div class="stat-fill" id="defense-bar"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">Attaque Spéciale</div>
+              <div id="special-attack" class="stat-value"></div>
+              <div class="stat-bar">
+                <div class="stat-fill" id="special-attack-bar"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">Défense Spéciale</div>
+              <div id="special-defense" class="stat-value"></div>
+              <div class="stat-bar">
+                <div class="stat-fill" id="special-defense-bar"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">Vitesse</div>
+              <div id="speed" class="stat-value"></div>
+              <div class="stat-bar">
+                <div class="stat-fill" id="speed-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="search-container">
-      <input
-        type="text"
-        name="search-input"
-        id="search-input"
-        autocomplete="off"
-        placeholder=""
-        required
-      />
-      <span id="placeholder-text"></span>
-      <button id="search-button">Search</button>
-    </div>
     <script src="script.js"></script>
   </body>
 </html>
