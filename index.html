@@ -7,6 +7,7 @@
     <title>Akieni Pokédex</title>
   </head>
   <body>
+    <div class="background-pulse"></div>
     <div class="container">
       <div class="app-header">
         <h1 class="app-title">Akieni Pokédex</h1>
@@ -25,25 +26,25 @@
         <button id="search-button">Search</button>
       </div>
 
-      <div class="pokemon-card" id="info-container">
+      <div class="pokemon-card hidden" id="info-container">
         <div class="card-header">
           <div class="pic-container">
             <img id="pic" alt="pokemon pic" />
           </div>
           <div class="pokemon-info-header">
             <h2 id="pokemon-name">Pikachu</h2>
-            <p id="pokemon-id">#33</p>
+            <p id="pokemon-id"></p>
             <div class="dimensions">
               <div class="dimension">
-                <span id="weight" class="dimension-value">3.2 kg</span>
+                <span id="weight" class="dimension-value"></span>
                 <span class="dimension-label">Poids</span>
               </div>
               <div class="dimension">
-                <span id="height" class="dimension-value">6.0 cm</span>
+                <span id="height" class="dimension-value"></span>
                 <span class="dimension-label">Taille</span>
               </div>
             </div>
-            <div class="types"></div>
+            <div id="types"></div>
           </div>
         </div>
         <div class="card-body">
