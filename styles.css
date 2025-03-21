@@ -79,10 +79,6 @@ body {
   transition: all 0.3s ease;
 }
 
-#search-input::placeholder {
-  color: var(--text-secondary);
-}
-
 #search-input:focus {
   outline: none;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
@@ -107,4 +103,83 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
 }
+
+#placeholder-text {
+  position: absolute;
+  top: 50%;
+  left: 1.4rem;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#typing-pikachu {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-image: url("./pikachu.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  display: none;
+  z-index: 2;
+}
+
+#typing-pikachu.typing {
+  animation: bounce 0.3s infinite alternate, glow 0.8s infinite alternate;
+}
+
+#typing-pikachu.erasing {
+  animation: shake 0.3s infinite, glow 0.8s infinite alternate;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(-60%);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateY(-50%) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-50%) rotate(5deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(-5deg);
+  }
+}
+
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 2px #ffec40);
+  }
+  100% {
+    filter: drop-shadow(0 0 8px #ffa700);
+  }
+}
+
+#search-input::placeholder {
+  color: transparent;
+}
+
+#search-input:focus + #placeholder-text {
+  display: none;
+}
+
+#search-input:not(:placeholder-shown) + #placeholder-text {
+  display: none;
+}
+
+#search-input:focus + #typing-pikachu {
+  display: none;
+}
+
 /* #endregion */
