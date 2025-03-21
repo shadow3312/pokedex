@@ -42,20 +42,23 @@ body {
   opacity: 0.2;
   background: radial-gradient(
     circle at center,
-    var(--secondary) 0%,
+    var(--primary) 0%,
     transparent 70%
   );
   animation: pulse 10s infinite alternate;
 }
 
 @keyframes pulse {
-  0% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.2;
+    background-color: var(--primary);
   }
   100% {
     transform: scale(1.5);
     opacity: 0.1;
+    background-color: var(--secondary);
   }
 }
 
@@ -306,6 +309,43 @@ body {
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
 }
 
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.pic-glow {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
 .pokemon-info-header {
   color: white;
 }
@@ -314,7 +354,7 @@ body {
   font-size: 3rem;
   font-weight: 800;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 #pokemon-id {
@@ -346,9 +386,9 @@ body {
   opacity: 0.6;
 }
 
-.types {
+#types {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .type-tag {

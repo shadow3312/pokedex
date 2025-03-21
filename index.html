@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
     <title>Akieni Pokédex</title>
   </head>
   <body>
@@ -23,13 +27,14 @@
           required
         />
         <span id="placeholder-text"></span>
-        <button id="search-button">Search</button>
+        <button id="search-button"><i class="fas fa-search"></i></button>
         <div id="autocomplete-container"></div>
       </div>
 
       <div class="pokemon-card hidden" id="info-container">
         <div class="card-header">
           <div class="pic-container">
+            <div class="pic-glow"></div>
             <img id="pic" alt="pokemon pic" />
           </div>
           <div class="pokemon-info-header">
