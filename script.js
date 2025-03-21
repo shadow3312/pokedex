@@ -173,16 +173,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       let pokemonData;
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${searchTerm}`
-      );
 
-      if (!response.ok) {
-        console.log("err", searchTerm);
-        throw new Error("Pokémon not found");
+      // Check cache first
+      if (pokemonCache[searchTerm]) {
+        pokemonData = pokemonCache[searchTerm];
+      } else {
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${searchTerm}`
+        );
+
+        if (!response.ok) {
+          console.log("err", searchTerm);
+          throw new Error("Pokémon not found");
+        }
+
+        pokemonData = await response.json();
+
+        // Cache the results
+        pokemonCache[searchTerm] = pokemonData;
+        pokemonCache[pokemonData.id] = pokemonData;
       }
-
-      pokemonData = await response.json();
 
       displayPokemonData(pokemonData);
 
