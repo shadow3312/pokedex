@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const pokemonWeight = document.getElementById("weight");
     const pokemonHeight = document.getElementById("height");
 
-    pokemonName.textContent = pokemon.name;
+    pokemonName.textContent = capitalize(pokemon.name);
     pokemonId.textContent = `#${pokemon.id}`;
     pokemonWeight.textContent = `${(pokemon.weight / 10).toFixed(1)} kg`;
     pokemonHeight.textContent = `${(pokemon.height / 10).toFixed(1)} m`;
@@ -278,8 +278,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Apply a gradient with the type color
         const rgbValues = color.match(/\d+/g);
-        const darkenedColor = `rgba(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]}, 0.8)`;
-        const evenDarkerColor = `rgba(${Math.max(
+        const firstColor = `rgba(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]}, 0.8)`;
+        const secondColor = `rgba(${Math.max(
           0,
           rgbValues[0] * 0.6
         )}, ${Math.max(0, rgbValues[1] * 0.6)}, ${Math.max(
@@ -287,13 +287,17 @@ document.addEventListener("DOMContentLoaded", function () {
           rgbValues[2] * 0.6
         )}, 0.9)`;
 
-        cardHeader.style.background = `linear-gradient(135deg, ${darkenedColor}, ${evenDarkerColor})`;
+        cardHeader.style.background = `linear-gradient(135deg, ${firstColor}, ${secondColor})`;
 
         // Also adjust the background pulse to match the Pokemon type
         const backgroundPulse = document.querySelector(".background-pulse");
-        backgroundPulse.style.background = `radial-gradient(circle at center, ${darkenedColor} 0%, transparent 70%)`;
+        backgroundPulse.style.background = `radial-gradient(circle at center, ${firstColor} 0%, transparent 70%)`;
       }
     }
+  }
+
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   // #endregion
