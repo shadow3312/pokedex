@@ -122,6 +122,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchButton = document.getElementById("search-button");
   const infoContainer = document.getElementById("info-container");
 
+  // Cache for pokemon list and data
+  let pokemonList = [];
+  let pokemonCache = {};
+  let debounceTimer;
+
   // Types to color mapping
   const typeColors = {
     normal: "normal",
@@ -298,6 +303,117 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  // #endregion
+
+  // #region AUTOCOMPLETE
+  const autocompleteContainer = document.getElementById(
+    "autocomplete-container"
+  );
+
+  // input event for autocompletion
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+
+    // Clear timeout
+    clearTimeout(debounceTimer);
+
+    // No autocomplete for empty input
+    if (query === "") {
+      autocompleteContainer.style.display = "none";
+      return;
+    }
+
+    // Set debounce timer
+
+    debounceTimer = setTimeout(() => {
+      if (pokemonList.length === 0) {
+        // Fetch list if we don't have it yet
+        fetchPokemonList().then(() => {
+          showAutocomplete(query);
+        });
+      } else {
+        showAutocomplete(query);
+      }
+    }, 300);
+  });
+
+  // Close autocomplete when clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      !searchInput.contains(e.target) &&
+      !autocompleteContainer.contains(e.target)
+    ) {
+      autocompleteContainer.style.display = "none";
+    }
+  });
+
+  // Fetch all pokemons for autocomplete
+  async function fetchPokemonList() {
+    try {
+      // Fetch all pokemon (first 898 for classic pokemon)
+      const response = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?limit=898"
+      );
+      const data = await response.json();
+      pokemonList = data.results.map((pokemon, index) => {
+        return {
+          id: index + 1,
+          name: pokemon.name,
+          url: pokemon.url,
+        };
+      });
+    } catch (error) {
+      console.error("Error fetching Pokemon list:", error);
+    }
+  }
+
+  // Show autocomplete suggestions
+  function showAutocomplete(query) {
+    // Filter pokemon list
+    const matches = pokemonList
+      .filter((pokemon) => {
+        // Match by name or ID
+        return pokemon.name.includes(query) || pokemon.id.toString() === query;
+      })
+      .slice(0, 8); // limit to 8 results
+
+    if (matches.length === 0) {
+      autocompleteContainer.style.display = "none";
+      return;
+    }
+
+    // clear previous results
+    autocompleteContainer.innerHTML = "";
+
+    // Add matches to autocomplete container
+
+    matches.forEach((pokemon) => {
+      const item = document.createElement("div");
+      item.classList.add("autocomplete-item");
+
+      // Get pic URL
+      const picUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`;
+
+      item.innerHTML = `<img src="${picUrl}" class="autocomplete-pic" alt="${
+        pokemon.name
+      }" > <div class="autocomplete-info">
+            <div class="autocomplete-name">${capitalize(pokemon.name)}</div>
+            <div class="autocomplete-id">#${pokemon.id}</div>
+          </div>`;
+
+      // Add click event
+      item.addEventListener("click", () => {
+        searchInput.value = pokemon.name;
+        autocompleteContainer.style.display = "none";
+        searchPokemon(pokemon.name);
+      });
+
+      autocompleteContainer.appendChild(item);
+    });
+
+    autocompleteContainer.style.display = "block";
   }
 
   // #endregion
