@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("search-input");
   const searchButton = document.getElementById("search-button");
   const infoContainer = document.getElementById("info-container");
+  const loadingSpinner = document.getElementById("loading-spinner");
 
   // Cache for pokemon list and data
   let pokemonList = [];
@@ -172,6 +173,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
+      loadingSpinner.style.display = "block";
+
       let pokemonData;
 
       // Check cache first
@@ -209,6 +212,8 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         infoContainer.classList.add("hidden");
       }, 500);
+    } finally {
+      loadingSpinner.style.display = "none";
     }
   }
 
@@ -340,8 +345,10 @@ document.addEventListener("DOMContentLoaded", function () {
     debounceTimer = setTimeout(() => {
       if (pokemonList.length === 0) {
         // Fetch list if we don't have it yet
+        loadingSpinner.style.display = "block";
         fetchPokemonList().then(() => {
           showAutocomplete(query);
+          loadingSpinner.style.display = "none";
         });
       } else {
         showAutocomplete(query);

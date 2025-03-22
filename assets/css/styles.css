@@ -45,7 +45,7 @@ body {
     var(--primary) 0%,
     transparent 70%
   );
-  animation: pulse 10s infinite alternate;
+  animation: pulse 5s infinite alternate;
 }
 
 @keyframes pulse {
@@ -90,6 +90,25 @@ body {
 /* #endregion */
 
 /* #region SEARCH */
+.loading-spinner {
+  display: none;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 60px;
+  top: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .search-container {
   position: relative;
   width: 100%;
@@ -150,7 +169,7 @@ body {
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  background-image: url("./pikachu.png");
+  background-image: url("../img/pikachu.png");
   background-repeat: no-repeat;
   background-size: contain;
   pointer-events: none;
