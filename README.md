@@ -2,6 +2,10 @@
 
 This app searches for Pokémon by name or ID and display the results using PokéAPI Proxy.
 
+## Live Demo
+
+Demo <a href="https://shadow3312.github.io/pokedex/">here</a>
+
 ## Features
 
 - Search for Pokémon by name or ID
